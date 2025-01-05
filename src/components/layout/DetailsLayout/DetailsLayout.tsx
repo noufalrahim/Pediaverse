@@ -1,10 +1,13 @@
 //-------------------------Imports-------------------------
 import { AcademicDetails, CompleteProfile, Dream, Interests, PersonalInformation } from "@/components/Login/components/About";
 import { OtpInput, PhoneNoInput } from "@/components/Login/components/Inputs";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/cn";
+import { StudentDataType } from "@/types/StudentDataType";
 import { useState } from "react";
-import { Stepper } from 'react-form-stepper';
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { formSchema } from "@/components/Login/components/About/schema/StudentDataSchema";
+import { Form } from "@/components/ui/form";
 
 export default function DetailsLayout() {
 
@@ -29,6 +32,22 @@ export default function DetailsLayout() {
         type: 'login',
         index: 'phone'
     });
+    const [studentData, setStudentData] = useState<StudentDataType>();
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            fullName: '',
+            dateOfBirth: new Date(),
+            gender: 'MALE',
+            city: '',
+            class12Mark: '',
+            medium: 'ENGLISH',
+            board: 'CBSE',
+            interests: [],
+            dream: '',
+        },
+    })
+    console.log(studentData);
 
     //-------------------------Functions-------------------------
     const RenderComponent = (renderIndex: {
@@ -48,15 +67,48 @@ export default function DetailsLayout() {
             case 'about':
                 switch (renderIndex.index) {
                     case '1':
-                        return <PersonalInformation />
+                        return <PersonalInformation
+                            setStudentData={setStudentData}
+                            steps={steps}
+                            activeStep={activeStep}
+                            handleNext={handleNext}
+                            form={form}
+                        />
                     case '2':
-                        return <AcademicDetails />
+                        return <AcademicDetails
+                            setStudentData={setStudentData}
+                            steps={steps}
+                            activeStep={activeStep}
+                            handleNext={handleNext}
+                            handlePrev={handlePrev}
+                            form={form}
+                        />
                     case '3':
-                        return <Interests />
+                        return <Interests
+                            setStudentData={setStudentData}
+                            steps={steps}
+                            activeStep={activeStep}
+                            handleNext={handleNext}
+                            handlePrev={handlePrev}
+                            form={form}
+                        />
                     case '4':
-                        return <Dream />
+                        return <Dream
+                            setStudentData={setStudentData}
+                            steps={steps}
+                            activeStep={activeStep}
+                            handleNext={handleNext}
+                            handlePrev={handlePrev}
+                            form={form}
+                        />
                     case '5':
-                        return <CompleteProfile />
+                        return <CompleteProfile
+                            setStudentData={setStudentData}
+                            steps={steps}
+                            activeStep={activeStep}
+                            onSubmit={onSubmit}
+                            form={form}
+                        />
                     default:
                         return <></>
                 }
@@ -75,66 +127,20 @@ export default function DetailsLayout() {
         setActiveStep((prev) => prev + 1);
     }
 
+    function onSubmit(values: z.infer<typeof formSchema>) {
+        // Do something with the form values.
+        // ✅ This will be type-safe and validated.
+        console.log(values)
+    }
+
     return (
         <div className="bg-secondary-100 p-4 flex flex-row max-w-7xl mx-auto shadow-xl rounded-xl">
             <div className="w-1/2">
                 <img src="/layoutImage.png" alt="placeholder" className="w-[40rem] h-[40rem] object-cover" />
             </div>
-            <div className={cn("p-4 my-10 flex flex-col rounded-xl",
-                renderIndex.type === 'login' ? 'w-1/2 justify-center' : 'w-3/4 border border-primary-gray justify-between'
-            )}>
-                {
-                    renderIndex.type === 'about' && (
-                        <Stepper
-                            steps={steps}
-                            activeStep={activeStep}
-                            styleConfig={{
-                                activeBgColor: '#5D5FEF',
-                                activeTextColor: 'white',
-                                completedBgColor: '#5D5FEF',
-                                completedTextColor: 'white',
-                                inactiveBgColor: 'lightGray',
-                                inactiveTextColor: 'black',
-                                size: '2em',
-                                circleFontSize: '1em',
-                                labelFontSize: '0.700em',
-                                borderRadius: '50%',
-                                fontWeight: 500,
-                            }}
-                        />
-                    )
-                }
-                <div className={cn(
-                    renderIndex.type === 'login' ? 'w-3/4' : 'w-full',
-                )}>
-                    {RenderComponent(renderIndex)}
-                </div>
-                {
-                    renderIndex.type === 'about' && renderIndex.index !== '5' && (
-                        <div className="flex justify-end gap-2">
-                            {
-                                parseInt(renderIndex.index) > 1 && (
-                                    <Button className="self-end  text-secondary-300 bg-white px-10 py-6 hover:bg-white/90" onClick={handlePrev}>
-                                        Back
-                                    </Button>
-                                )
-                            }
-                            <Button className="self-end  bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90" onClick={handleNext}>
-                                Next
-                            </Button>
-                        </div>
-                    )
-                }
-                {
-                    renderIndex.type === 'about' && renderIndex.index === '5' && (
-                        <div className="flex justify-end gap-2">
-                            <Button className="self-end  bg-success text-white px-10 py-6 hover:bg-success/90 w-full">
-                                Get Started
-                            </Button>
-                        </div>
-                    )
-                }
-            </div>
+            <Form {...form}>
+                {RenderComponent(renderIndex)}
+            </Form>
         </div>
     )
 }

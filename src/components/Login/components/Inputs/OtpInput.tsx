@@ -16,7 +16,7 @@ export default function OtpInput({
     setRenderIndex,
 }: OtpInputProps) {
     return (
-        <div>
+        <div className="w-1/2 justify-center p-4 my-10 flex flex-col rounded-xl">
             <h1 className="text-2xl text-black font-abhaya">Become a Part of Our</h1>
             <h1 className="text-2xl text-black font-abhaya">Community</h1>
             <p className="text-secondary-200 text-lg font-mulish">
