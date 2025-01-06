@@ -3,6 +3,7 @@ import { Header } from "../Header";
 import StepperComponent from "@/components/Stepper/Stepper";
 import { Button } from "@/components/ui/button";
 import { StudentDataType } from "@/types/StudentDataType";
+import { FormControl, FormField, FormItem } from "@/components/ui/form";
 
 interface DreamProps {
     setStudentData: (data: StudentDataType) => void;
@@ -39,7 +40,17 @@ export default function Dream({
                 title="Share Your Dream 🤩"
                 description="What is your biggest dream or goal? Write about your aspirations and what you hope to achieve in the future."
             >
-                <Textarea placeholder="Type here (Optional)" className="border-primary-gray min-h-60" />
+                <FormField
+                    control={form.control}
+                    name="dream"
+                    render={({ field }) => (
+                        <FormItem className="w-full">
+                            <FormControl>
+                                <Textarea placeholder="Type here (Optional)" className="border-primary-gray min-h-60" {...field}/>
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
             </Header>
             {
                 <div className="flex justify-end gap-2">

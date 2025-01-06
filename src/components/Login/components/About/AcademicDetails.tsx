@@ -4,6 +4,7 @@ import { StudentDataType } from "@/types/StudentDataType";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import StepperComponent from "@/components/Stepper/Stepper";
 import { Button } from "@/components/ui/button";
+import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 
 interface AcademicDetailsProps {
     setStudentData: (data: StudentDataType) => void;
@@ -40,30 +41,56 @@ export default function AcademicDetails({
                 description="Share details about your current academic level and performance."
             >
                 <div className="flex flex-row gap-5">
-                    <Input placeholder="Class (12th)" className="border border-primary-gray py-5 rounded-lg" />
+                    <FormField
+                        control={form.control}
+                        name="class12th"
+                        render={({ field }) => (
+                            <FormItem className="w-full">
+                                <FormControl>
+                                    <Input placeholder="Class (12th)" className="border border-primary-gray py-5 rounded-lg" {...field} />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
                 </div>
                 <div className="flex flex-row gap-5">
-                    <Select>
-                        <SelectTrigger className="w-full py-5 border border-primary-gray">
-                            <SelectValue placeholder="Medium" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white">
-                            <SelectItem value="ENGLISH">English</SelectItem>
-                            <SelectItem value="Malyalam">Malayalam</SelectItem>
-                            <SelectItem value="OTHER">Other</SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <Select>
-                        <SelectTrigger className="w-full py-5 border border-primary-gray">
-                            <SelectValue placeholder="Board (CBSE)" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white">
-                            <SelectItem value="CBSE">CBSE</SelectItem>
-                            <SelectItem value="ICSE">ICSE</SelectItem>
-                            <SelectItem value="STATE">State</SelectItem>
-                            <SelectItem value="OTHER">Other</SelectItem>
-                        </SelectContent>
-                    </Select>
+                    <FormField
+                        control={form.control}
+                        name="medium"
+                        render={({ field }) => (
+                            <FormItem className="w-full">
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                    <SelectTrigger className="w-full py-5 border border-primary-gray">
+                                        <SelectValue placeholder="Medium" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white">
+                                        <SelectItem value="ENGLISH">English</SelectItem>
+                                        <SelectItem value="Malyalam">Malayalam</SelectItem>
+                                        <SelectItem value="OTHER">Other</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="board"
+                        render={({ field }) => (
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <SelectTrigger className="w-full py-5 border border-primary-gray">
+                                    <SelectValue placeholder="Board (CBSE)" />
+                                </SelectTrigger>
+                                <SelectContent className="bg-white">
+                                    <SelectItem value="CBSE">CBSE</SelectItem>
+                                    <SelectItem value="ICSE">ICSE</SelectItem>
+                                    <SelectItem value="STATE">State</SelectItem>
+                                    <SelectItem value="OTHER">Other</SelectItem>
+                                </SelectContent>
+                                <FormMessage />
+                            </Select>
+                        )}
+                    />
                 </div>
             </Header>
             {
