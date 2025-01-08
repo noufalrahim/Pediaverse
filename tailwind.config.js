@@ -16,6 +16,7 @@ module.exports = {
 				primary: {
 					'100': '#F6F6F6',
 					'gray': '#DBE3FF',
+					'gray-2': '#565F84',
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
 				},
@@ -23,6 +24,9 @@ module.exports = {
 					'100': '#FFFFFF',
 					'200': '#828FC4',
 					'300': '#5D5FEF',
+					'400': '#F4F7FE',
+					'500': '#E9EDF7',
+					'600': '#67729D',
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'
 				},
