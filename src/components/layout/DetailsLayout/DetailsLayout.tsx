@@ -1,5 +1,5 @@
 //-------------------------Imports-------------------------
-import { AcademicDetails, CompleteProfile, Dream, Interests, PersonalInformation } from "@/components/Login/components/About";
+import { AcademicDetails, CompleteProfile, Dream, Interests, PersonalInformation,Skills } from "@/components/Login/components/About";
 import { OtpInput, PhoneNoInput } from "@/components/Login/components/Inputs";
 import { StudentDataType } from "@/types/StudentDataType";
 import { useState } from "react";
@@ -16,6 +16,7 @@ export default function DetailsLayout() {
     const steps = [
         { label: 'Personal Information' },
         { label: 'Academic Details' },
+        { label: 'Skills' },
         { label: 'Hobbies' },
         { label: 'Dream' },
         { label: 'Complete Profile' },
@@ -40,9 +41,6 @@ export default function DetailsLayout() {
             dateOfBirth: new Date(),
             gender: 'MALE',
             city: '',
-            class12Mark: '',
-            medium: 'ENGLISH',
-            board: 'CBSE',
             interests: [],
             dream: '',
         },
@@ -84,7 +82,7 @@ export default function DetailsLayout() {
                             form={form}
                         />
                     case '3':
-                        return <Interests
+                        return <Skills
                             setStudentData={setStudentData}
                             steps={steps}
                             activeStep={activeStep}
@@ -93,7 +91,7 @@ export default function DetailsLayout() {
                             form={form}
                         />
                     case '4':
-                        return <Dream
+                        return <Interests
                             setStudentData={setStudentData}
                             steps={steps}
                             activeStep={activeStep}
@@ -102,6 +100,15 @@ export default function DetailsLayout() {
                             form={form}
                         />
                     case '5':
+                        return <Dream
+                            setStudentData={setStudentData}
+                            steps={steps}
+                            activeStep={activeStep}
+                            handleNext={handleNext}
+                            handlePrev={handlePrev}
+                            form={form}
+                        />
+                    case '6':
                         return <CompleteProfile
                             setStudentData={setStudentData}
                             steps={steps}
