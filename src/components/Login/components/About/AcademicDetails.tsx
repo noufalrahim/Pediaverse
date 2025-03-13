@@ -27,7 +27,6 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon, PlusCircle, Trash2 } from "lucide-react";
 import { format } from "date-fns";
-//import { useForm, Controller } from "react-hook-form";
 
 interface AcademicDetailsProps {
   setStudentData: (data: StudentDataType) => void;
@@ -81,9 +80,12 @@ export default function AcademicDetails({
   };
 
   const onNext = (data: StudentDataType) => {
+    console.log("onNext called with data:", data);
     setStudentData(data);
     handleNext();
   };
+
+  console.log("Rendering AcademicDetails, activeStep:", activeStep);
 
   return (
     <form
@@ -95,7 +97,7 @@ export default function AcademicDetails({
         title="Your Academic Background 🎓"
         description="Share details about your academic journey."
       >
-        {educations.map((education, index) => (
+        {educations.map((_, index) => (
           <div
             key={index}
             className="flex flex-col gap-5 border p-4 rounded-lg relative"
@@ -161,11 +163,12 @@ export default function AcademicDetails({
                 </FormItem>
               )}
             />
+
             <div className="flex flex-row gap-5">
               {/* Start Date */}
               <FormField
                 name={`educations.${index}.startDate`}
-                control={form.control}
+                control={control}
                 render={({ field }) => (
                   <FormItem className="flex flex-col w-full">
                     <FormControl>
@@ -204,7 +207,7 @@ export default function AcademicDetails({
               {/* End Date */}
               <FormField
                 name={`educations.${index}.endDate`}
-                control={form.control}
+                control={control}
                 render={({ field }) => (
                   <FormItem className="flex flex-col w-full">
                     <FormControl>
@@ -259,6 +262,7 @@ export default function AcademicDetails({
 
             <Button
               variant="destructive"
+              type="button" // Prevent form submission
               onClick={() => removeEducation(index)}
             >
               <Trash2 className="h-4 w-4 mr-2" /> Remove
@@ -281,8 +285,8 @@ export default function AcademicDetails({
         </Button>
         <Button
           type="submit"
-          className="self-end bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90"
           onClick={handleNext}
+          className="self-end bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90"
         >
           Next
         </Button>

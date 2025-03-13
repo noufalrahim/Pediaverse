@@ -45,26 +45,31 @@ export default function Interests({
   form,
 }: InterestsProps) {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
-  const { setValue, watch } = useFormContext();
+  const { setValue } = useFormContext(); // Removed unused 'watch'
 
   // Sync interests with form state
   useEffect(() => {
+    console.log("Syncing interests to form:", selectedInterests);
     setValue("interests", selectedInterests);
   }, [selectedInterests, setValue]);
 
   const handleSelected = (value: string) => {
-    setSelectedInterests((prev) =>
-      prev.includes(value)
+    setSelectedInterests((prev) => {
+      const newInterests = prev.includes(value)
         ? prev.filter((item) => item !== value)
-        : [...prev, value]
-    );
+        : [...prev, value];
+      console.log("Selected interests:", newInterests);
+      return newInterests;
+    });
   };
 
   const onNext = (data: StudentDataType) => {
-    setStudentData({...data,
-      interests: selectedInterests});
+    console.log("onNext called with:", { ...data, interests: selectedInterests });
+    setStudentData({ ...data, interests: selectedInterests });
     handleNext();
   };
+
+  console.log("Rendering Interests, activeStep:", activeStep);
 
   return (
     <form
@@ -100,16 +105,16 @@ export default function Interests({
       </Header>
       <div className="flex justify-end gap-2">
         <Button
+          type="button"
           className="self-end text-secondary-300 bg-white px-10 py-6 hover:bg-white/90"
           onClick={handlePrev}
-          type="button"
         >
           Back
         </Button>
         <Button
-          className="self-end bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90"
           type="submit"
           onClick={handleNext}
+          className="self-end bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90"
         >
           Next
         </Button>
