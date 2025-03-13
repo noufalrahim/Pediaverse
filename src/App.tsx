@@ -5,7 +5,7 @@ import { Dashboard } from "./components/Dashboard";
 export default function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log(setIsLoggedIn);
+  console.log(isLoggedIn);
   if (isLoggedIn) {
     return (
       <Dashboard />
