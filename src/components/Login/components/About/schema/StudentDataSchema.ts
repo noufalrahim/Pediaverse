@@ -36,7 +36,7 @@ export const formSchema = z.object({
         instituteName: z.string(),
         rollNo: z.string(),
         course: z.string(),
-        startDate: z.date().nullable(), // Allows null if not available
+        startDate: z.date().nullable(),
         endDate: z.date().nullable(),
         currentlyStudying: z.boolean(),
         cgpa: z.number()

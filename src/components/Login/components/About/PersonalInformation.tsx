@@ -44,7 +44,7 @@ export default function PersonalInformation({
   handleNext,
   form,
 }: PersonalInformationProps) {
-//  console.log(setStudentData);
+  //  console.log(setStudentData);
 
   const onNext = (data: StudentDataType) => {
     setStudentData(data);
@@ -191,8 +191,8 @@ export default function PersonalInformation({
       </Header>
       <div className="flex justify-end gap-2">
         <Button
-          className="self-end  bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90" 
-          onClick={handleNext}
+          className="self-end  bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90"
+          onClick={() => onNext(form.getValues())}
         >
           Next
         </Button>

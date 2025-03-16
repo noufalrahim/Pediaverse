@@ -285,7 +285,7 @@ export default function AcademicDetails({
         </Button>
         <Button
           type="submit"
-          onClick={handleNext}
+          onClick={() => onNext(form.getValues())}
           className="self-end bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90"
         >
           Next

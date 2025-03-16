@@ -39,18 +39,6 @@ export default function DetailsLayout() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      fullName: "",
-      //city: "",
-      email: "",
-      educations: [
-        {
-          instituteName: "",
-          rollNo: "",
-          course: "",
-        },
-      ],
-      skills: [],
-      interests: [],
     },
   });
 
@@ -143,7 +131,8 @@ export default function DetailsLayout() {
   };
 
   const handleNext = () => {
-    console.log(form.getValues());
+    // console.log(form.getValues());
+
     setRenderIndex((prev) => ({
       ...prev,
       index: (parseInt(prev.index) + 1).toString(),
