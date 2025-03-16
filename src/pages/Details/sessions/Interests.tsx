@@ -9,22 +9,23 @@ import { useFormContext } from "react-hook-form";
 
 const categorizedInterests = {
   Technology: [
-    { label: "Coding/Programming 💻", value: "coding" },
-    { label: "Gaming 🎮", value: "gaming" },
+    { skillName: "Coding/Programming 💻", value: "coding" },
+    { skillName: "Gaming 🎮", value: "gaming" },
   ],
   "Non-Technical": [
-    { label: "Sports 🏀", value: "sports" },
-    { label: "Traveling 🏔️", value: "traveling" },
+    { skillName: "Sports 🏀", value: "sports" },
+    { skillName: "Traveling 🏔️", value: "traveling" },
   ],
   "Art & Creativity": [
-    { label: "Music 🎤", value: "music" },
-    { label: "Art/Drawing 🎨", value: "art" },
-    { label: "Photography 📸", value: "photography" },
-    { label: "Writing ✍🏻", value: "writing" },
-    { label: "Dance 🕺", value: "dance" },
+    { skillName: "Music 🎤", value: "music" },
+    { skillName: "Art/Drawing 🎨", value: "art" },
+    { skillName: "Photography 📸", value: "photography" },
+    { skillName: "Writing ✍🏻", value: "writing" },
+    { skillName: "Dance 🕺", value: "dance" },
   ],
-  Academics: [{ label: "Reading 📖", value: "reading" }],
+  Academics: [{ skillName: "Reading 📖", value: "reading" }],
 };
+
 
 interface InterestsProps {
   setStudentData: (data: StudentDataType) => void;
@@ -48,10 +49,10 @@ export default function Interests({
   const { setValue } = useFormContext(); // Removed unused 'watch'
 
   // Sync interests with form state
-  useEffect(() => {
-    console.log("Syncing interests to form:", selectedInterests);
-    setValue("interests", selectedInterests);
-  }, [selectedInterests, setValue]);
+  // useEffect(() => {
+  //   console.log("Syncing interests to form:", selectedInterests);
+  //   setValue("interests", selectedInterests);
+  // }, [selectedInterests, setValue]);
 
   const handleSelected = (value: string) => {
     setSelectedInterests((prev) => {
@@ -96,7 +97,7 @@ export default function Interests({
                   )}
                   onClick={() => handleSelected(interest.value)}
                 >
-                  {interest.label}
+                  {interest.skillName}
                 </Badge>
               ))}
             </div>
