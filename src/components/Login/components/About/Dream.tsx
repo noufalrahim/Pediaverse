@@ -42,7 +42,7 @@ export default function Dream({
             >
                 <FormField
                     control={form.control}
-                    name="dream"
+                    name="Dream"
                     render={({ field }) => (
                         <FormItem className="w-full">
                             <FormControl>
@@ -57,7 +57,7 @@ export default function Dream({
                     <Button className="self-end  text-secondary-300 bg-white px-10 py-6 hover:bg-white/90" onClick={handlePrev}>
                         Back
                     </Button>
-                    <Button className="self-end  bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90"  onClick={handleNext}>
+                    <Button className="self-end  bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90"  onClick={handleNext} type="submit">
                         Next
                     </Button>
                 </div>

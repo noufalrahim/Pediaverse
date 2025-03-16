@@ -19,26 +19,22 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { cn } from "@/lib/cn";
-
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, PlusCircle, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 
 interface AcademicDetailsProps {
   setStudentData: (data: StudentDataType) => void;
-  steps: {
-    label: string;
-  }[];
+  steps: { label: string }[];
   activeStep: number;
   handleNext: () => void;
   handlePrev: () => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  form: any;
+  form: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export default function AcademicDetails({
@@ -49,218 +45,252 @@ export default function AcademicDetails({
   handlePrev,
   form,
 }: AcademicDetailsProps) {
-  const [currentlyStudying, setCurrentlyStudying] = useState(false);
+  const { control, handleSubmit } = form;
+  const [educations, setEducations] = useState([
+    {
+      instituteName: "",
+      rollNo: "",
+      course: "",
+      startDate: null,
+      endDate: null,
+      currentlyStudying: false,
+      cgpa: "",
+    },
+  ]);
+
+  const addEducation = () => {
+    setEducations([
+      ...educations,
+      {
+        instituteName: "",
+        rollNo: "",
+        course: "",
+        startDate: null,
+        endDate: null,
+        currentlyStudying: false,
+        cgpa: "",
+      },
+    ]);
+  };
+
+  const removeEducation = (index: number) => {
+    if (educations.length > 1) {
+      setEducations(educations.filter((_, i) => i !== index));
+    }
+  };
 
   const onNext = (data: StudentDataType) => {
+    console.log("onNext called with data:", data);
     setStudentData(data);
     handleNext();
   };
 
+  console.log("Rendering AcademicDetails, activeStep:", activeStep);
+
   return (
     <form
-      onSubmit={form.handleSubmit(onNext)}
-      className={
-        "p-4 my-10 flex flex-col rounded-xl w-3/4 border border-primary-gray justify-between"
-      }
+      onSubmit={handleSubmit(onNext)}
+      className="p-4 my-10 flex flex-col rounded-xl w-3/4 border border-primary-gray justify-between"
     >
       <StepperComponent steps={steps} activeStep={activeStep} />
       <Header
         title="Your Academic Background 🎓"
-        description="Share details about your current academic level and performance."
+        description="Share details about your academic journey."
       >
-        <div className="flex flex-col gap-5">
-          {/* Institute Name */}
-          <FormField
-            control={form.control}
-            name="instituteName"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <Input
-                    placeholder="Institute Name"
-                    className="border border-primary-gray py-5 rounded-lg"
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="rollNo"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <Input
-                    placeholder="Rollno"
-                    className="border border-primary-gray py-5 rounded-lg"
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          {/* Course Selection */}
-          <FormField
-            control={form.control}
-            name="course"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <SelectTrigger className="w-full py-5 border border-primary-gray">
-                    <SelectValue placeholder="Select Course" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-white">
-                    <SelectItem value="BSc">BSc</SelectItem>
-                    <SelectItem value="BTech">BTech</SelectItem>
-                    <SelectItem value="BA">BA</SelectItem>
-                    <SelectItem value="Other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        {educations.map((_, index) => (
+          <div
+            key={index}
+            className="flex flex-col gap-5 border p-4 rounded-lg relative"
+          >
+            <h3 className="text-lg font-semibold">Education {index + 1}</h3>
 
-          {/* Start Date & End Date */}
-          <div className="flex flex-row gap-5">
             <FormField
-              control={form.control}
-              name="startDate"
+              control={control}
+              name={`educations[${index}].instituteName`}
               render={({ field }) => (
-                <FormItem className="flex flex-col w-full">
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full border border-primary-gray py-5 rounded-lg pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value, "PPP")
-                          ) : (
-                            <span>Start date</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0 bg-white" align="end">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) =>
-                          date > new Date() || date < new Date("1900-01-01")
-                        }
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Institute Name"
+                      className="border border-primary-gray py-5 rounded-lg"
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
-              control={form.control}
-              name="endDate"
+              control={control}
+              name={`educations[${index}].rollNo`}
               render={({ field }) => (
-                <FormItem className="flex flex-col w-full">
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full border border-primary-gray py-5 rounded-lg pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                          disabled={currentlyStudying}
-                        >
-                          {field.value ? (
-                            format(field.value, "PPP")
-                          ) : (
-                            <span>End date</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0 bg-white" align="end">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) =>
-                          date > new Date() || date < new Date("1900-01-01")
-                        }
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Roll Number"
+                      className="border border-primary-gray py-5 rounded-lg"
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-          </div>
 
-          {/* Currently Studying Checkbox */}
-          <div className="flex items-center gap-1">
-            <Checkbox
-              id="currentlyStudying"
-              checked={currentlyStudying}
-              onCheckedChange={(checked: boolean | "indeterminate") =>
-                setCurrentlyStudying(checked === true)
-              }
+            <FormField
+              control={control}
+              name={`educations[${index}].course`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger className="w-full py-5 border border-primary-gray">
+                        <SelectValue placeholder="Select Course" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white">
+                        <SelectItem value="BSc">BSc</SelectItem>
+                        <SelectItem value="BTech">BTech</SelectItem>
+                        <SelectItem value="BA">BA</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
 
-            <label htmlFor="currentlyStudying" className="text-sm">
-              Currently Studying Here
-            </label>
-          </div>
+            <div className="flex flex-row gap-5">
+              {/* Start Date */}
+              <FormField
+                name={`educations.${index}.startDate`}
+                control={control}
+                render={({ field }) => (
+                  <FormItem className="flex flex-col w-full">
+                    <FormControl>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className={cn(
+                              "w-full border border-primary-gray py-5 rounded-lg pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value
+                              ? format(field.value, "PPP")
+                              : "Start date"}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent
+                          className="w-auto p-0 bg-white"
+                          align="end"
+                        >
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          {/* Current CGPA */}
-          <FormField
-            control={form.control}
-            name="cgpa"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <Input
-                    type="number"
-                    step="0.01"
-                    placeholder="CGPA"
-                    className="border border-primary-gray py-5 rounded-lg"
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-        </div>
+              {/* End Date */}
+              <FormField
+                name={`educations.${index}.endDate`}
+                control={control}
+                render={({ field }) => (
+                  <FormItem className="flex flex-col w-full">
+                    <FormControl>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className={cn(
+                              "w-full border border-primary-gray py-5 rounded-lg pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value
+                              ? format(field.value, "PPP")
+                              : "End date"}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent
+                          className="w-auto p-0 bg-white"
+                          align="end"
+                        >
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <FormField
+              control={control}
+              name={`educations[${index}].currentlyStudying`}
+              render={({ field }) => (
+                <FormItem className="flex items-center gap-2">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <label className="text-sm">Currently Studying Here</label>
+                </FormItem>
+              )}
+            />
+
+            <Button
+              variant="destructive"
+              type="button" // Prevent form submission
+              onClick={() => removeEducation(index)}
+            >
+              <Trash2 className="h-4 w-4 mr-2" /> Remove
+            </Button>
+          </div>
+        ))}
+
+        <Button className="mt-4" type="button" onClick={addEducation}>
+          <PlusCircle className="h-5 w-5 mr-2" /> Add Another Degree
+        </Button>
       </Header>
-      {
-        <div className="flex justify-end gap-2">
-          <Button
-            className="self-end  text-secondary-300 bg-white px-10 py-6 hover:bg-white/90"
-            onClick={handlePrev}
-          >
-            Back
-          </Button>
-          <Button
-            className="self-end  bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90"
-            onClick={handleNext}
-          >
-            Next
-          </Button>
-        </div>
-      }
+
+      <div className="flex justify-end gap-2">
+        <Button
+          type="button"
+          className="self-end text-secondary-300 bg-white px-10 py-6 hover:bg-white/90"
+          onClick={handlePrev}
+        >
+          Back
+        </Button>
+        <Button
+          type="submit"
+          onClick={handleNext}
+          className="self-end bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90"
+        >
+          Next
+        </Button>
+      </div>
     </form>
   );
 }

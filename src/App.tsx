@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { DetailsLayout } from "./components/layout/DetailsLayout";
 import { Dashboard } from "./components/Dashboard";
 
 export default function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log(setIsLoggedIn);
+  const isLoggedIn =false;
+  console.log(isLoggedIn);
   if (isLoggedIn) {
     return (
       <Dashboard />

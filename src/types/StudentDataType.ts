@@ -7,14 +7,53 @@
     label: string;
     value: string;
 };*/
-export type StudentDataType = {
+/*export type StudentDataType = {
     fullName: string;
     dateOfBirth: Date;
     gender: 'MALE' | 'FEMALE' | 'OTHER',
     city: string;
-    class12Mark: string;
-    medium: 'ENGLISH' | 'MALAYALAM' | 'OTHER',
-    board: 'CBSE' | 'ICSE' | 'STATE' | 'OTHER',
+    email: string;
+    rollno: string;
+    instituteName: string;
+    course: string;
+    educations: {
+        instituteName: string;
+        rollNo: string;
+        course: string;
+        startDate: null;
+        endDate: null;
+        currentlyStudying: boolean;
+        cgpa: string;
+    }
+    //medium: 'ENGLISH' | 'MALAYALAM' | 'OTHER',
+    //board: 'CBSE' | 'ICSE' | 'STATE' | 'OTHER',
+    startDate: Date;
+    endDate: Date;
+    cgpa: number;
+    skills: string[];
+    interests: string[];
+    dream: string;
+};
+*/
+export type StudentDataType = {
+    fullName: string;
+    dateOfBirth: Date;
+    gender: 'MALE' | 'FEMALE' | 'OTHER';
+    city: string;
+    email: string;
+    rollno: string;
+    instituteName: string;
+    course: string;
+    educations: {
+        instituteName: string;
+        rollNo: string;
+        course: string;
+        startDate: Date | null;
+        endDate: Date | null;
+        currentlyStudying: boolean;
+        cgpa: number | string;
+    }[];
+    cgpa: number;
     skills: string[];
     interests: string[];
     dream: string;
