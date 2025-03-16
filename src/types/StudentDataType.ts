@@ -1,8 +1,12 @@
-export type InterestType = {
+/*export type InterestType = {
     label: string;
     value: string;
-};
+};*/
 
+/*export type SkillType = {
+    label: string;
+    value: string;
+};*/
 export type StudentDataType = {
     fullName: string;
     dateOfBirth: Date;
@@ -11,6 +15,7 @@ export type StudentDataType = {
     class12Mark: string;
     medium: 'ENGLISH' | 'MALAYALAM' | 'OTHER',
     board: 'CBSE' | 'ICSE' | 'STATE' | 'OTHER',
-    intersts: InterestType[];
+    skills: string[];
+    interests: string[];
     dream: string;
 };

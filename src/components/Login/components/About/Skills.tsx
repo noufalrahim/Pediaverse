@@ -6,28 +6,30 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { cn } from "@/lib/cn";
 
-const categorizedInterests = {
-    "Technology": [
-        { label: "Coding/Programming 💻", value: "coding" },
-        { label: "Gaming 🎮", value: "gaming" },
+const categorizedSkills = {
+    "Technical Skills": [
+        { label: "Web Development 🌐", value: "web_dev" },
+        { label: "Data Science 📊", value: "data_science" },
+        { label: "Machine Learning 🤖", value: "machine_learning" },
+        { label: "Cybersecurity 🔒", value: "cybersecurity" },
     ],
-    "Non-Technical": [
-        { label: "Sports 🏀", value: "sports" },
-        { label: "Traveling 🏔️", value: "traveling" },
+    "Soft Skills": [
+        { label: "Communication 🗣", value: "communication" },
+        { label: "Leadership 👨‍💼", value: "leadership" },
+        { label: "Problem-Solving 🧩", value: "problem_solving" },
     ],
-    "Art & Creativity": [
-        { label: "Music 🎤", value: "music" },
-        { label: "Art/Drawing 🎨", value: "art" },
-        { label: "Photography 📸", value: "photography" },
+    "Creative Skills": [
+        { label: "Graphic Design 🎨", value: "graphic_design" },
+        { label: "Video Editing 🎬", value: "video_editing" },
         { label: "Writing ✍🏻", value: "writing" },
-        { label: "Dance 🕺", value: "dance" },
     ],
-    "Academics": [
-        { label: "Reading 📖", value: "reading" },
+    "Other Skills": [
+        { label: "Project Management 📂", value: "project_management" },
+        { label: "Marketing 📢", value: "marketing" },
     ]
 };
 
-interface InterestsProps {
+interface SkillsProps {
     setStudentData: (data: StudentDataType) => void;
     steps: { label: string }[];
     activeStep: number;
@@ -37,18 +39,18 @@ interface InterestsProps {
     form: any;
 }
 
-export default function Interests({
+export default function Skills({
     setStudentData,
     steps,
     activeStep,
     handleNext,
     handlePrev,
     form,
-}: InterestsProps) {
-    const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+}: SkillsProps) {
+    const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
     const handleSelected = (value: string) => {
-        setSelectedInterests((prev) =>
+        setSelectedSkills((prev) =>
             prev.includes(value)
                 ? prev.filter((item) => item !== value)
                 : [...prev, value]
@@ -56,7 +58,7 @@ export default function Interests({
     };
 
     const onNext = (data: StudentDataType) => {
-        setStudentData({ ...data, interests: selectedInterests });
+        setStudentData({ ...data, skills: selectedSkills });
         handleNext();
     };
 
@@ -67,25 +69,25 @@ export default function Interests({
         >
             <StepperComponent steps={steps} activeStep={activeStep} />
             <Header
-                title="Discover Your Interests 🎨🖌️"
-                description="Select the hobbies that interest you the most."
+                title="Showcase Your Skills 💡"
+                description="Select the skills that best define your expertise."
             >
-                {Object.entries(categorizedInterests).map(([category, interests]) => (
+                {Object.entries(categorizedSkills).map(([category, skills]) => (
                     <div key={category} className="my-4">
                         <h3 className="text-lg font-semibold mb-2">{category}</h3>
                         <div className="flex flex-wrap gap-2">
-                            {interests.map((interest) => (
+                            {skills.map((skill) => (
                                 <Badge
-                                    key={interest.value}
+                                    key={skill.value}
                                     className={cn(
                                         "px-5 py-3 bg-transparent border text-gray-800 cursor-pointer",
-                                        selectedInterests.includes(interest.value)
+                                        selectedSkills.includes(skill.value)
                                             ? "border-secondary-300"
                                             : "border-primary-gray"
                                     )}
-                                    onClick={() => handleSelected(interest.value)}
+                                    onClick={() => handleSelected(skill.value)}
                                 >
-                                    {interest.label}
+                                    {skill.label}
                                 </Badge>
                             ))}
                         </div>
@@ -101,6 +103,7 @@ export default function Interests({
                 </Button>
                 <Button
                     className="self-end bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90"
+                    type="submit"
                     onClick={handleNext}
                 >
                     Next
