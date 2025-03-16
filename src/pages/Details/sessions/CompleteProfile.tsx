@@ -3,7 +3,7 @@ import StepperComponent from "@/components/Stepper/Stepper";
 import { Button } from "@/components/ui/button";
 import { StudentDataType } from "@/types/StudentDataType";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import { formSchema } from "./schema/StudentDataSchema";
+import { formSchema } from "../schema/StudentDataSchema";
 import { z } from "zod";
 import { useCreateData } from "@/hooks/useCreateData";
 import { generateRandomString } from "@/utils/generateRandomString";
@@ -28,7 +28,7 @@ export default function CompleteProfile({
     form,
 }: CompleteProfileProps) {
 
-    const { mutate: studentMutate, 
+    const { mutate: studentMutate,
         // isPending, 
         // isError 
     } = useCreateData<StudentType>("/students");
@@ -55,13 +55,13 @@ export default function CompleteProfile({
                     institute: generateRandomString(8),
                     course: data.course,
                     startYear: Math.floor(Math.random() * 2000),
-                    endYear: Math.floor(Math.random() * 2000) 
-                }; 
+                    endYear: Math.floor(Math.random() * 2000)
+                };
 
                 educationMutate(educationDetails, {
                     onSuccess: (data) => {
                         console.log("success", data);
-                        
+
                     },
                     onError: (error) => {
                         console.log(error)

@@ -1,6 +1,6 @@
-import { Careers } from "../Careers";
-import { Sessions } from "../Sessions";
-import { Sidebar } from "../Sidebar";
+import { Careers } from "../../components/Careers";
+import { Sessions } from "../../components/Sessions";
+import { Sidebar } from "../../components/Sidebar";
 
 export default function Dashboard() {
     return (

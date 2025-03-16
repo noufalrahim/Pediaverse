@@ -1,9 +1,9 @@
-import { DetailsLayout } from "./components/layout/DetailsLayout";
-import { Dashboard } from "./components/Dashboard";
+import { DetailsLayout } from "./pages/Details";
+import { Dashboard } from "./pages/Dashboard";
 
 export default function App() {
 
-  const isLoggedIn =false;
+  const isLoggedIn = false;
   console.log(isLoggedIn);
   if (isLoggedIn) {
     return (

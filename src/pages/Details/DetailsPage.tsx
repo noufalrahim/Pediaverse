@@ -6,17 +6,17 @@ import {
   Interests,
   PersonalInformation,
   Skills,
-} from "@/components/Login/components/About";
-import { OtpInput, PhoneNoInput } from "@/components/Login/components/Inputs";
+} from "@/pages/Details/sessions";
+import { OtpInput, PhoneNoInput } from "@/components/Inputs";
 import { StudentDataType } from "@/types/StudentDataType";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {  z } from "zod";
-import { formSchema } from "@/components/Login/components/About/schema/StudentDataSchema";
+import { z } from "zod";
+import { formSchema } from "@/pages/Details/schema/StudentDataSchema";
 import { Form } from "@/components/ui/form";
 
-export default function DetailsLayout() {
+export default function DetailsPage() {
   //-------------------------Variables-------------------------
   const steps = [
     { label: "Personal Information" },

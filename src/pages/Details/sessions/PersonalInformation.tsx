@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { Header } from "../Header";
+import { Header } from "../../../components/Header";
 import { StudentDataType } from "@/types/StudentDataType";
 import {
   Select,

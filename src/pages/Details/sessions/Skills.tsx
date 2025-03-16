@@ -1,5 +1,5 @@
 import { StudentDataType } from "@/types/StudentDataType";
-import { Header } from "../Header";
+import { Header } from "../../../components/Header";
 import { Badge } from "@/components/ui/badge";
 import StepperComponent from "@/components/Stepper/Stepper";
 import { Button } from "@/components/ui/button";
@@ -36,7 +36,7 @@ interface SkillsProps {
   activeStep: number;
   handleNext: () => void;
   handlePrev: () => void;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   form: any;
 }
 
@@ -114,7 +114,7 @@ export default function Skills({
           Back
         </Button>
         <Button
-          type="submit"onClick={handleNext}
+          type="submit" onClick={handleNext}
 
           className="self-end bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90"
         >

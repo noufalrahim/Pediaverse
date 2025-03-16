@@ -1,5 +1,5 @@
 import { StudentDataType } from "@/types/StudentDataType";
-import { Header } from "../Header";
+import { Header } from "../../../components/Header";
 import { Badge } from "@/components/ui/badge";
 import StepperComponent from "@/components/Stepper/Stepper";
 import { Button } from "@/components/ui/button";
