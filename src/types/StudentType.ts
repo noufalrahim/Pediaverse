@@ -8,5 +8,4 @@ export type StudentType = {
     phoneNumber: string;
     courseYear?: number;
     location: string;
-}
-
+};

@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import StepperComponent from "@/components/Stepper/Stepper";
 import { Button } from "@/components/ui/button";
-import { StudentDataType, StudentType } from "@/types/StudentDataType";
+import { StudentDataType } from "@/types/StudentDataType";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { formSchema } from "./schema/StudentDataSchema";
 import { z } from "zod";
 import { useCreateData } from "@/hooks/useCreateData";
 import { generateRandomString } from "@/utils/generateRandomString";
 import { EducationType } from "@/types/EducationType";
+import { StudentType } from "@/types/StudentType";
 
 interface CompleteProfileProps {
     setStudentData: (data: StudentDataType) => void;
