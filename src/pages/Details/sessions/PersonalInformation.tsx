@@ -1,6 +1,5 @@
 import { Input } from "@/components/ui/input";
 import { Header } from "../../../components/Header";
-import { StudentDataType } from "@/types/StudentDataType";
 import {
   Select,
   SelectContent,
@@ -17,17 +16,9 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
+
 
 interface PersonalInformationProps {
-  setStudentData: (data: StudentDataType) => void;
   steps: {
     label: string;
   }[];
@@ -38,16 +29,14 @@ interface PersonalInformationProps {
 }
 
 export default function PersonalInformation({
-  setStudentData,
   steps,
   activeStep,
   handleNext,
   form,
 }: PersonalInformationProps) {
-  //  console.log(setStudentData);
 
-  const onNext = (data: StudentDataType) => {
-    setStudentData(data);
+  const onNext = (data: any) => {
+    console.log(data)
     handleNext();
   };
 
@@ -66,7 +55,7 @@ export default function PersonalInformation({
         <div className="flex flex-row gap-5">
           <FormField
             control={form.control}
-            name="fullName"
+            name="name"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
@@ -81,49 +70,28 @@ export default function PersonalInformation({
           />
           <FormField
             control={form.control}
-            name="dob"
+            name="age"
             render={({ field }) => (
-              <FormItem className="flex flex-col w-full">
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-full border border-primary-gray py-5 rounded-lg pl-3 text-left font-normal",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                          <span>Date of birth</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0 bg-white" align="end">
-                    <Calendar
-                      mode="single"
-                      selected={field.value}
-                      onSelect={field.onChange}
-                      disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
-                      }
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-                <FormMessage />
-              </FormItem>
+              <FormItem className="w-full">
+                <FormControl>
+                <Input
+                  type="number"
+                  placeholder="Age "
+                  min="1"
+                  max="130"
+                  className="border border-primary-gray py-5 rounded-lg"
+                  {...field}
+                 />
+              </FormControl>
+            </FormItem>
             )}
           />
+
         </div>
         <div className="flex flex-row gap-5">
           <FormField
             control={form.control}
-            name="email"
+            name="mail"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
@@ -139,31 +107,10 @@ export default function PersonalInformation({
           />
         </div>
         <div className="flex flex-row gap-5">
+
           <FormField
             control={form.control}
-            name="Gender"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <SelectTrigger className="w-full py-5 border border-primary-gray">
-                    <SelectValue placeholder="Gender" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-white">
-                    <SelectItem value="MALE">Male</SelectItem>
-                    <SelectItem value="FEMALE">Female</SelectItem>
-                    <SelectItem value="OTHER">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="City"
+            name="location"
             render={({ field }) => (
               <FormItem className="w-full">
                 <Select

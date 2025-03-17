@@ -8,7 +8,6 @@ import {
   Skills,
 } from "@/pages/Details/sessions";
 import { OtpInput, PhoneNoInput } from "@/components/Inputs";
-import { StudentDataType } from "@/types/StudentDataType";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -34,7 +33,7 @@ export default function DetailsPage() {
     index: string;
   }>({ type: "login", index: "phone" });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_studentData, setStudentData] = useState<StudentDataType | undefined>();
+  // const [_studentData, setStudentData] = useState<StudentDataType | undefined>();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -61,7 +60,6 @@ export default function DetailsPage() {
     const aboutComponents: { [key: string]: JSX.Element } = {
       "1": (
         <PersonalInformation
-          setStudentData={setStudentData}
           steps={steps}
           activeStep={activeStep}
           handleNext={handleNext}
@@ -70,7 +68,6 @@ export default function DetailsPage() {
       ),
       "2": (
         <AcademicDetails
-          setStudentData={setStudentData}
           steps={steps}
           activeStep={activeStep}
           handleNext={handleNext}
@@ -80,7 +77,6 @@ export default function DetailsPage() {
       ),
       "3": (
         <Skills
-          setStudentData={setStudentData}
           steps={steps}
           activeStep={activeStep}
           handleNext={handleNext}
@@ -90,7 +86,6 @@ export default function DetailsPage() {
       ),
       "4": (
         <Interests
-          setStudentData={setStudentData}
           steps={steps}
           activeStep={activeStep}
           handleNext={handleNext}
@@ -100,7 +95,6 @@ export default function DetailsPage() {
       ),
       "5": (
         <Dream
-          setStudentData={setStudentData}
           steps={steps}
           activeStep={activeStep}
           handleNext={handleNext}
@@ -110,7 +104,6 @@ export default function DetailsPage() {
       ),
       "6": (
         <CompleteProfile
-          setStudentData={setStudentData}
           steps={steps}
           activeStep={activeStep}
           onSubmit={onSubmit}
