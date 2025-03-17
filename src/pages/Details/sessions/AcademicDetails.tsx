@@ -1,6 +1,5 @@
   import { Input } from "@/components/ui/input";
   import { Header } from "../../../components/Header";
-  import { StudentType } from "@/types/StudentType";
   import {
     Select,
     SelectTrigger,
@@ -16,20 +15,10 @@
     FormItem,
     FormMessage,
   } from "@/components/ui/form";
-  import { Checkbox } from "@/components/ui/checkbox";
   import { useState } from "react";
-  import { cn } from "@/lib/cn";
-  import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-  } from "@/components/ui/popover";
-  import { Calendar } from "@/components/ui/calendar";
-  import { CalendarIcon, PlusCircle, Trash2 } from "lucide-react";
-  import { format } from "date-fns";
+  import { PlusCircle, Trash2 } from "lucide-react";
 
   interface AcademicDetailsProps {
-    setStudentData: (data: StudentType) => void;
     steps: { label: string }[];
     activeStep: number;
     handleNext: () => void;
@@ -38,7 +27,6 @@
   }
 
   export default function AcademicDetails({
-    setStudentData,
     steps,
     activeStep,
     handleNext,
@@ -73,9 +61,8 @@
       }
     };
 
-    const onNext = (data: StudentType) => {
+    const onNext = (data: any) => {
       console.log("onNext called with data:", data);
-      setStudentData(data);
       handleNext();
     };
 
@@ -116,24 +103,24 @@
               />
               
 
-            <>{ // <FormField
-              //   control={control}
-              //   name={`educations[${index}].rollNo`}
-              //   render={({ field }) => (
-              //     <FormItem>
-              //       <FormControl>
-              //         <Input
-              //           {...field}
-              //           placeholder="Roll Number"
-              //           className="border border-primary-gray py-5 rounded-lg"
-              //         />
-              //       </FormControl>
-              //       <FormMessage />
-              //     </FormItem>
-              //   )}
-              // />
-            }
-              </>
+            <FormField
+                control={control}
+                name="rollNo"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Roll Number"
+                        className="border border-primary-gray py-5 rounded-lg"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            
+            
 
               <FormField
                 control={control}
@@ -198,25 +185,6 @@
                   )}
                 />  
               </div>
-
-              <> 
-              {// <FormField
-              //   control={control}
-              //   name={`educations[${index}].currentlyStudying`}
-              //   render={({ field }) => (
-              //     <FormItem className="flex items-center gap-2">
-              //       <FormControl>
-              //         <Checkbox
-              //           checked={field.value}
-              //           onCheckedChange={field.onChange}
-              //         />
-              //       </FormControl>
-              //       <label className="text-sm">Currently Studying Here</label>
-              //     </FormItem>
-              //   )}
-              // />
-              }
-              </>
 
               <Button
                 variant="destructive"

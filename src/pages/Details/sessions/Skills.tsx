@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/cn";
 import { useFormContext } from "react-hook-form";
-import { StudentDataType } from "@/types/StudentDataType";
+
+
 
 const categorizedSkills = {
   "Technical Skills": [
@@ -33,7 +34,7 @@ const categorizedSkills = {
 interface SkillsProps {
   steps: { label: string }[];
   activeStep: number;
-  handleNext: (data: any) => void;
+  handleNext: () => void;
   handlePrev: () => void;
   form: any;
 }
@@ -46,7 +47,7 @@ export default function Skills({
   form,
 }: SkillsProps) {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
-  const { setValue, getValues } = useFormContext();
+  const { setValue } = useFormContext();
 
   useEffect(() => {
     setValue("skillsandinterests", selectedSkills);
@@ -59,13 +60,16 @@ export default function Skills({
   };
 
   const onSubmit = (data: any) => {
-    handleNext(data); // Pass the updated data to the next step
+    console.log(data)
+    handleNext(); // Pass the updated data to the next step
   };
 
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
-      className="p-4 my-10 flex flex-col rounded-xl w-3/4 border border-primary-gray justify-between"
+      className={cn(
+        "p-4 my-10 flex flex-col rounded-xl w-3/4 border border-primary-gray justify-between"
+      )}
     >
       <StepperComponent steps={steps} activeStep={activeStep} />
       <Header title="Showcase Your Skills 💡" description="Select the skills that best define your expertise.">
@@ -90,10 +94,17 @@ export default function Skills({
         ))}
       </Header>
       <div className="flex justify-end gap-2">
-        <Button type="button" className="text-secondary-300 bg-white px-10 py-6 hover:bg-white/90" onClick={handlePrev}>
+        <Button
+          type="button"
+          className="text-secondary-300 bg-white px-10 py-6 hover:bg-white/90"
+          onClick={handlePrev}
+        >
           Back
         </Button>
-        <Button type="button" onClick={onSubmit}  className="bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90">
+        <Button
+          type="submit" onClick={onSubmit}
+          className="bg-secondary-300 text-white px-10 py-6 hover:bg-secondary-300/90"
+        >
           Next
         </Button>
       </div>

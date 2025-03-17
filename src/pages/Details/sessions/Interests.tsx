@@ -1,11 +1,10 @@
-import { StudentDataType } from "@/types/StudentDataType";
+
 import { Header } from "../../../components/Header";
 import { Badge } from "@/components/ui/badge";
 import StepperComponent from "@/components/Stepper/Stepper";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { cn } from "@/lib/cn";
-import { useFormContext } from "react-hook-form";
 
 const categorizedInterests = {
   Technology: [
@@ -28,7 +27,6 @@ const categorizedInterests = {
 
 
 interface InterestsProps {
-  setStudentData: (data: StudentDataType) => void;
   steps: { label: string }[];
   activeStep: number;
   handleNext: () => void;
@@ -38,7 +36,6 @@ interface InterestsProps {
 }
 
 export default function Interests({
-  setStudentData,
   steps,
   activeStep,
   handleNext,
@@ -46,7 +43,7 @@ export default function Interests({
   form,
 }: InterestsProps) {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
-  const { setValue } = useFormContext(); // Removed unused 'watch'
+  // const { setValue } = useFormContext(); // Removed unused 'watch'
 
   // Sync interests with form state
   // useEffect(() => {
@@ -64,9 +61,9 @@ export default function Interests({
     });
   };
 
-  const onNext = (data: StudentDataType) => {
-    console.log("onNext called with:", { ...data, interests: selectedInterests });
-    setStudentData({ ...data, interests: selectedInterests });
+  const onNext = () => {
+    // console.log("onNext called with:", { ...data, interests: selectedInterests });
+    // setStudentData({ ...data, interests: selectedInterests });
     handleNext();
   };
 
