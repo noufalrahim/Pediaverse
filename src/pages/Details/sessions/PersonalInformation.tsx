@@ -1,6 +1,5 @@
 import { Input } from "@/components/ui/input";
 import { Header } from "../../../components/Header";
-import { StudentType } from "@/types/StudentType";
 import {
   Select,
   SelectContent,
@@ -19,7 +18,6 @@ import {
 } from "@/components/ui/form";
 
 interface PersonalInformationProps {
-  setStudentData: (data: StudentType) => void;
   steps: {
     label: string;
   }[];
@@ -30,16 +28,13 @@ interface PersonalInformationProps {
 }
 
 export default function PersonalInformation({
-  setStudentData,
   steps,
   activeStep,
   handleNext,
   form,
 }: PersonalInformationProps) {
-  //  console.log(setStudentData);
 
-  const onNext = (data: StudentType) => {
-    setStudentData(data);
+  const onNext = (data: any) => {
     console.log(data)
     handleNext();
   };
@@ -111,32 +106,6 @@ export default function PersonalInformation({
           />
         </div>
         <div className="flex flex-row gap-5">
-        
-        <>
-          {// <FormField
-          //   control={form.control}
-          //   name="Gender"
-          //   render={({ field }) => (
-          //     <FormItem className="w-full">
-          //       <Select
-          //         onValueChange={field.onChange}
-          //         defaultValue={field.value}
-          //       >
-          //         <SelectTrigger className="w-full py-5 border border-primary-gray">
-          //           <SelectValue placeholder="Gender" />
-          //         </SelectTrigger>
-          //         <SelectContent className="bg-white">
-          //           <SelectItem value="MALE">Male</SelectItem>
-          //           <SelectItem value="FEMALE">Female</SelectItem>
-          //           <SelectItem value="OTHER">Other</SelectItem>
-          //         </SelectContent>
-          //       </Select>
-          //       <FormMessage />
-          //     </FormItem>
-          //   )}
-          // />
-          }
-        </>
 
           <FormField
             control={form.control}

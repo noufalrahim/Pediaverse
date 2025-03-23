@@ -2,11 +2,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Header } from "../../../components/Header";
 import StepperComponent from "@/components/Stepper/Stepper";
 import { Button } from "@/components/ui/button";
-import { StudentDataType } from "@/types/StudentDataType";
 import { FormControl, FormField, FormItem } from "@/components/ui/form";
 
 interface DreamProps {
-    setStudentData: (data: StudentDataType) => void;
     steps: {
         label: string;
     }[];
@@ -18,7 +16,6 @@ interface DreamProps {
 }
 
 export default function Dream({
-    setStudentData,
     steps,
     activeStep,
     handleNext,
@@ -27,8 +24,8 @@ export default function Dream({
 }: DreamProps
 ) {
 
-    const onNext = (data: StudentDataType) => {
-        setStudentData(data);
+    const onNext = (data: any) => {
+        console.log(data)
         handleNext();
     }
 

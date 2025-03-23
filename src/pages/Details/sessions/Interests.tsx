@@ -1,4 +1,4 @@
-import { StudentDataType } from "@/types/StudentDataType";
+
 import { Header } from "../../../components/Header";
 import { Badge } from "@/components/ui/badge";
 import StepperComponent from "@/components/Stepper/Stepper";
@@ -27,7 +27,6 @@ const categorizedInterests = {
 
 
 interface InterestsProps {
-  setStudentData: (data: StudentDataType) => void;
   steps: { label: string }[];
   activeStep: number;
   handleNext: () => void;
@@ -37,7 +36,6 @@ interface InterestsProps {
 }
 
 export default function Interests({
-  setStudentData,
   steps,
   activeStep,
   handleNext,
@@ -62,9 +60,9 @@ export default function Interests({
     });
   };
 
-  const onNext = (data: StudentDataType) => {
-    console.log("onNext called with:", { ...data, interests: selectedInterests });
-    setStudentData({ ...data, interests: selectedInterests });
+  const onNext = () => {
+    // console.log("onNext called with:", { ...data, interests: selectedInterests });
+    // setStudentData({ ...data, interests: selectedInterests });
     handleNext();
   };
 

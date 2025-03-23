@@ -154,7 +154,6 @@ export default function AcademicDetails({
             />
 
             <div className="flex flex-row gap-5">
-              {/* Start Year */}
               <FormField
                 control={form.control}
                 name={`educations[${index}].startYear`}
