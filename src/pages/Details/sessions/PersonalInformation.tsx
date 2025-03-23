@@ -17,7 +17,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-
 interface PersonalInformationProps {
   steps: {
     label: string;

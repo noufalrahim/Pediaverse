@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Header } from "../../../components/Header";
 import { Badge } from "@/components/ui/badge";
 import StepperComponent from "@/components/Stepper/Stepper";
@@ -5,8 +6,6 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/cn";
 import { useFormContext } from "react-hook-form";
-
-
 
 const categorizedSkills = {
   "Technical Skills": [

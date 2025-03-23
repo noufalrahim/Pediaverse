@@ -36,30 +36,29 @@ export default function CompleteProfile({
     const handleSubmit = (data: any) => {
         console.log(data);
         const studentData: StudentType = {
-            name: generateRandomString(6),
-            age: Math.floor(Math.random() * 10) + 18, // Random age between 18-27
-            mail: `${generateRandomString(5)}@${generateRandomString(3)}.com`,
+            name: data.name,
+            age: parseInt(data.age), // Random age between 18-27
+            mail: data.mail,
             rollNo: generateRandomString(8),
-            course: ["BTECH", "MTECH", "BSC", "MSC"][Math.floor(Math.random() * 4)],
-            phoneNumber: `${Math.floor(9000000000 + Math.random() * 1000000000)}`, // Random 10-digit number
-            courseYear: Math.floor(Math.random() * 4) + 1, // Random year 1-4
-            location: ["USA", "India", "UK", "Canada", "Germany"][Math.floor(Math.random() * 5)]
+            course: (data.education && data.education.length > 0) ? data.education[0].course : 'BSc',
+            phoneNumber: `${Math.floor(9000000000 + Math.random() * 1000000000)}`,
+            courseYear: Math.floor(Math.random() * 4) + 1,
+            location: data.location,
         };
 
         studentMutate(studentData, {
-            onSuccess: (data) => {
+            onSuccess: (respData) => {
                 const educationDetails: EducationType = {
-                    studentId: data.id!,
-                    institute: generateRandomString(8),
-                    course: data.course,
-                    startYear: Math.floor(Math.random() * 2000),
-                    endYear: Math.floor(Math.random() * 2000)
+                    studentId: respData.id!,
+                    institute: (data.education && data.education.length > 0) ? data.education[0].institute : 'College',
+                    course: (data.education && data.education.length > 0) ? data.education[0].course : 'BSc',
+                    startYear: (data.education && data.education.length > 0) ? data.education[0].startYear : 2021,
+                    endYear: (data.education && data.education.length > 0) ? data.education[0].endYear : 2026,
                 };
 
                 educationMutate(educationDetails, {
                     onSuccess: (data) => {
                         console.log("success", data);
-
                     },
                     onError: (error) => {
                         console.log(error)
