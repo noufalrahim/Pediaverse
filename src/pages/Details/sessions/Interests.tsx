@@ -3,9 +3,8 @@ import { Header } from "../../../components/Header";
 import { Badge } from "@/components/ui/badge";
 import StepperComponent from "@/components/Stepper/Stepper";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/cn";
-import { useFormContext } from "react-hook-form";
 
 const categorizedInterests = {
   Technology: [
@@ -46,7 +45,6 @@ export default function Interests({
   form,
 }: InterestsProps) {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
-  const { setValue } = useFormContext(); // Removed unused 'watch'
 
   // Sync interests with form state
   // useEffect(() => {

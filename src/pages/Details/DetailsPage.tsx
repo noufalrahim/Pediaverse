@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 //-------------------------Imports-------------------------
 import {
   AcademicDetails,
@@ -61,7 +62,7 @@ export default function DetailsPage() {
     const aboutComponents: { [key: string]: JSX.Element } = {
       "1": (
         <PersonalInformation
-          setStudentData={setStudentData}
+          setStudentData={(data: any) => setStudentData(data)}
           steps={steps}
           activeStep={activeStep}
           handleNext={handleNext}
@@ -70,7 +71,7 @@ export default function DetailsPage() {
       ),
       "2": (
         <AcademicDetails
-          setStudentData={setStudentData}
+          setStudentData={(data: any) => setStudentData(data)}
           steps={steps}
           activeStep={activeStep}
           handleNext={handleNext}
@@ -80,7 +81,6 @@ export default function DetailsPage() {
       ),
       "3": (
         <Skills
-          setStudentData={setStudentData}
           steps={steps}
           activeStep={activeStep}
           handleNext={handleNext}
