@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input } from "@/components/ui/input";
 import { Header } from "../../../components/Header";
 import { StudentType } from "@/types/StudentType";
@@ -21,8 +22,8 @@ import { PlusCircle, Trash2 } from "lucide-react";
 
 
 interface AcademicDetailsProps {
-  setStudentData: (data: StudentType) => void;
   steps: { label: string }[];
+  setStudentData: (Data: any) => void;
   activeStep: number;
   handleNext: () => void;
   handlePrev: () => void;
@@ -30,9 +31,9 @@ interface AcademicDetailsProps {
 }
 
 export default function AcademicDetails({
-  setStudentData,
   steps,
   activeStep,
+  setStudentData,
   handleNext,
   handlePrev,
   form,

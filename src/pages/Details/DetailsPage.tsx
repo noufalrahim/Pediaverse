@@ -34,7 +34,7 @@ export default function DetailsPage() {
     index: string;
   }>({ type: "login", index: "phone" });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const [_studentData, setStudentData] = useState<StudentDataType | undefined>();
+  const [_studentData, setStudentData] = useState<any | undefined>();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -61,7 +61,6 @@ export default function DetailsPage() {
     const aboutComponents: { [key: string]: JSX.Element } = {
       "1": (
         <PersonalInformation
-          setStudentData={(data: any) => setStudentData(data)}
           steps={steps}
           activeStep={activeStep}
           handleNext={handleNext}
@@ -70,8 +69,8 @@ export default function DetailsPage() {
       ),
       "2": (
         <AcademicDetails
-          setStudentData={(data: any) => setStudentData(data)}
           steps={steps}
+          setStudentData={setStudentData}
           activeStep={activeStep}
           handleNext={handleNext}
           handlePrev={handlePrev}
